@@ -1,12 +1,25 @@
 const express = require('express');
 const app = express();
 
-// routes
-app.get('/', (req, res) => {
-    res.send('It works!');
+// Middlewares
+app.use('/posts', () => {
+    // check auth
+    console.log('middleware is running');
 });
 
-app.listen(3000, function(err) {
+// routes
+app
+    .get('/', (req, res) => {
+        res.send('It works!');
+    })
+    .get('/posts', (req, res) => {
+        res.send('It posts!');
+    });
+
+// Connect To DB
+mongoose.connect('mongodb+srv://StephanDee:<cOnKBpiuvBsBOQVF>@stephandeecluster-nv4z9.mongodb.net/test?retryWrites=true&w=majority');
+
+app.listen(3000, function (err) {
     if (err !== undefined) {
         console.log('Error on startup,', err);
     } else {
