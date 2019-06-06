@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 require('dotenv/config');
 
-//Import Routes
+// Import Routes
 const postsRoute = require('./routes/posts');
 
-
 // Middlewares
+app.use(bodyParser.json());
 app.use('/posts', postsRoute);
 
 // Routes
@@ -21,9 +23,9 @@ mongoose.connect(
     { useNewUrlParser: true },
     () => {
         console.log('connected to the DB.');
-});
+    });
 
-app.listen(3000, function (err) {
+app.listen(3000, (err) => {
     if (err !== undefined) {
         console.log('Error on startup,', err);
     } else {
