@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 
-const PostSchema = mongoose.Schema({
+const ProductSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    title: {
+    name: {
         type: String,
         required: true
     },
     description: {
-        type: String,
+        type: String
+    },
+    price: {
+        type: Number,
         required: true
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 });
 
-module.exports = mongoose.model('Posts', PostSchema);
+module.exports = mongoose.model('Products', ProductSchema);
