@@ -9,7 +9,7 @@ router.route('/')
     .get(async (req, res) => {
         try {
             const products = await Product.find();
-            res.json({ Products: products });
+            res.json(products);
         } catch (error) {
             res.status(codes.success).json({ message: error });
         }
@@ -26,7 +26,7 @@ router.route('/')
 
         try {
             const savedProduct = await product.save();
-            res.json({ Product: savedProduct });
+            res.json(savedProduct);
         } catch (error) {
             res.status(codes.servererror).json({ message: error });
         }
@@ -37,7 +37,7 @@ router.route('/:id')
     .get(async (req, res) => {
         try {
             product = await Product.findById(req.params.id);
-            res.json({ Product: product });
+            res.json(product);
         } catch (error) {
             res.status(codes.servererror).json({ message: error });
         }
@@ -58,7 +58,7 @@ router.route('/:id')
                         }
                     });
 
-                res.json({ Product: updatedProduct });
+                res.json(updatedProduct);
             } catch (error) {
                 res.status(codes.servererror).json({ message: error });
             }
@@ -71,7 +71,7 @@ router.route('/:id')
     .delete(async (req, res) => {
         try {
             const removedProduct = await Product.deleteOne({ _id: req.params.id });
-            res.json({ Product: removedProduct });
+            res.json(removedProduct);
         } catch (error) {
             res.status(codes.servererror).json({ message: error });
         }
