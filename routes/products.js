@@ -44,6 +44,31 @@ router.route('/:id')
 
         res.status(codes.success);
     })
+    .put(async (req, res) => {
+        if (req.body.name !== undefined && req.body.price !== undefined) {
+            const product = undefined;
+            try {
+                product = await Product.findById(req.params.id);
+                product.name = req.body.name;
+                product.price = req.body.price;
+                product.__v = product.__v + 1;
+
+                // optional
+                if (req.body.description) {
+                    product.description = req.body.description;
+                }
+
+                const savedProduct = await product.save();
+                res.json(savedProduct);
+            } catch (error) {
+                res.status(codes.servererror).json({ message: error });
+            }
+
+            res.status(codes.success);
+        } else {
+            res.status(codes.notfound).json({ message: 'Name or Price is missing.' });
+        }
+    })
     .patch(async (req, res) => {
         if (req.body.name !== undefined && req.body.description !== undefined && req.body.price !== undefined) {
             try {
@@ -65,7 +90,7 @@ router.route('/:id')
 
             res.status(codes.success);
         } else {
-            res.status(codes.servererror).json({ message: 'Name, Description or Price is missing.' });
+            res.status(codes.notfound).json({ message: 'Name, Description or Price is missing.' });
         }
     })
     .delete(async (req, res) => {
