@@ -1,6 +1,6 @@
 {
-  "name": "my-rest-app",
-  "version": "1.0.0",
+  "name": "stephan-dee-cloud",
+  "version": "0.0.1-alpha",
   "description": "My Rest Application",
   "main": "app.js",
   "scripts": {
