@@ -50,13 +50,9 @@ router.route('/:id')
                 const product = await Product.findById(req.params.id);
                 product.date = Date.now();
                 product.name = req.body.name;
+                product.description = req.body.description;
                 product.price = req.body.price;
                 product.__v = product.__v + 1;
-
-                // optional
-                if (req.body.description) {
-                    product.description = req.body.description;
-                }
 
                 const savedProduct = await product.save();
                 res.json(savedProduct);
