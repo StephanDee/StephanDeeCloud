@@ -7,12 +7,14 @@ const cors = require('cors');
 require('dotenv/config');
 
 // Import Routes
+const authRoute = require('./routes/auth');
 const productsRoute = require('./routes/products');
 
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/products', productsRoute);
+app.use('/user', authRoute);
 
 // Routes
 app.get('/', (req, res) => {

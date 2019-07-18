@@ -11,10 +11,10 @@ router.route('/')
             const products = await Product.find();
             res.json(products);
         } catch (error) {
-            res.status(codes.success).json({ message: error });
+            res.status(codes.servererror).json({ message: error });
         }
 
-        res.status(200);
+        res.status(codes.success);
     })
     .post(async (req, res) => {
         const product = new Product({
@@ -28,7 +28,7 @@ router.route('/')
             const savedProduct = await product.save();
             res.json(savedProduct);
         } catch (error) {
-            res.status(codes.servererror).json({ message: error });
+            res.status(codes.wrongrequest).json({ message: error });
         }
 
         res.status(codes.created);
@@ -94,7 +94,7 @@ router.route('/:id')
             const removedProduct = await Product.deleteOne({ _id: req.params.id });
             res.json(removedProduct);
         } catch (error) {
-            res.status(codes.servererror).json({ message: error });
+            res.status(codes.wrongrequest).json({ message: error });
         }
 
         res.status(codes.success);
